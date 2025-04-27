@@ -17,15 +17,15 @@ stopwords = set(STOPWORDS)
 
 novas_palavras = []
 
-with open("teste_extracao.docx", 'r', encoding='UTF8',) as item:
-
-    [novas_palavras.append(word) for linha in item for word in linha.split()]
+for linha in texto.splitlines():
+    for word in linha.split():
+        novas_palavras.append(word)
 
 new_stopwords = stopwords.union(novas_palavras)
 
-wordcloud = WordCloud(width=800, height=400, background_color = 'white').generate(texto)
+wordcloud = WordCloud(width=800, height=400, background_color = 'white', stopwords=new_stopwords).generate(texto)
 
 plt.figure(figsize=(10, 5))
-plt.imshow(wordcloud, interpolarion= 'bilinear')
+plt.imshow(wordcloud, interpolation= 'bilinear')
 plt.axis("off")
 plt.show()
